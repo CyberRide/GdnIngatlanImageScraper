@@ -1,6 +1,6 @@
 # GdnIngatlanImageScraper
 
-![GdnIngatlanImageScraper](https://github.com/CyberRide/GdnIngatlanImageScraper/blob/main/Screenshot%20from%202024-02-11%2001-46-55.png)
+![GdnIngatlanImageScraper](https://github.com/CyberRide/GdnIngatlanImageScraper/blob/main/img.png)
 
 GdnIngatlanImageScraper is a Flask web application for extracting property images from the Gdn-Ingatlan website.
 
