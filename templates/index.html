@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GDN-Ingatlan Image Scraper</title>
+    <meta name="description" content="Scrape images from gdn-ingatlan."/>
+
+    <!--Inter UI font-->
+    <link href="https://rsms.me/inter/inter-ui.css" rel="stylesheet">
+
+    <!--vendors styles-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}" id="theme-color">
+</head>
+<body>
+<!--navigation-->
+<section class="smart-scroll">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <a class="navbar-brand heading-black" href="/">
+                GDN-Image Scraper
+            </a>
+            <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span data-feather="grid"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll d-flex flex-row align-items-center text-primary" href="#">
+                            <em data-feather="layout" width="18" height="18" class="mr-2"></em>
+                            Get Started
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</section>
+
+<!--hero header-->
+<section class="py-7 py-md-0 bg-hero" id="home">
+    <div class="container">
+        <div class="row vh-md-100">
+            <div class="col-md-8 col-sm-10 col-12 mx-auto my-auto text-center">
+                <h1 class="heading-black text-capitalize">Scrape Images from Gdn-ingatlan</h1>
+                <p class="lead py-3">Use our tool to quickly scrape images from Gdn-ingatlan by providing property links. Save time and effort.</p>
+                <form  method="POST" id="imageForm">
+                    <div class="form-group">
+                        <label for="property-link">Enter Property Link:</label>
+                        <input type="text" class="form-control" id="property-link" name="link" placeholder="https://www.gdn-ingatlan.com/property/123456">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Scrape Images</button>
+                </form>
+                        
+        <!-- Error Message Section -->
+        {% if error_message %}
+        <div class="error-message">
+            {{ error_message }}
+        </div>
+        {% endif %}
+        <div id="loading-screen">
+            <div class="spinner"></div>
+        </div>
+        
+            </div>            
+        </div>
+    </div>
+</section>
+
+<!-- features section -->
+<section class="pt-6 pb-7" id="features">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto text-center">
+                <h2 class="heading-black">Gdn-ingatlan Image Scraper offers powerful features.</h2>
+                <p class="text-muted lead">Scrape images from Gdn-ingatlan effortlessly with our advanced tool. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-10 mx-auto">
+                <div class="row feature-boxes">
+                    <div class="col-md-6 box">
+                        <div class="icon-box box-primary">
+                            <div class="icon-box-inner">
+                                <span data-feather="download-cloud" width="35" height="35"></span>
+                            </div>
+                        </div>
+                        <h5>Effortless Image Scraping</h5>
+                        <p class="text-muted">Scrape images from Gdn-ingatlan by simply providing property links. No hassle, no fuss.</p>
+                    </div>
+                    <div class="col-md-6 box">
+                        <div class="icon-box box-success">
+                            <div class="icon-box-inner">
+                                <span data-feather="database" width="35" height="35"></span>
+                            </div>
+                        </div>
+                        <h5>Manage Scraped Data</h5>
+                        <p class="text-muted">Easily manage and organize scraped images from Gdn-ingatlan with our intuitive interface.</p>
+                    </div>
+                    <div class="col-md-6 box">
+                        <div class="icon-box box-danger">
+                            <div class="icon-box-inner">
+                                <span data-feather="settings" width="35" height="35"></span>
+                            </div>
+                        </div>
+                        <h5>Customizable Settings</h5>
+                        <p class="text-muted">Tailor the scraping process to your needs with customizable settings and filters.</p>
+                    </div>
+                    <div class="col-md-6 box">
+                        <div class="icon-box box-info">
+                            <div class="icon-box-inner">
+                                <span data-feather="check-circle" width="35" height="35"></span>
+                            </div>
+                        </div>
+                        <h5>Reliable Results</h5>
+                        <p class="text-muted">Get accurate and reliable results every time with our Gdn-ingatlan Image Scraper.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-6">
+            <div class="col-md-6 mr-auto">
+                <h2>Gdn-ingatlan Image Scraper is your ultimate image scraping solution.</h2>
+                <p class="mb-5">Gdn-ingatlan Image Scraper is the premier tool for effortlessly collecting images from Gdn-ingatlan listings. Gain access to a vast collection of property images quickly and easily. Simplify your image scraping process and save time with our intuitive solution.</p>
+                <a href="#" class="btn btn-light">
+                    Try the live demo
+                </a>
+            </div>
+            <div class="col-md-5">
+                <div class="slick-about">
+                    <img src="/static/img/blog-1.jpg" class="img-fluid rounded d-block mx-auto" alt="Scraped Image 1"/>
+                    <img src="/static/img/blog-2.jpg" class="img-fluid rounded d-block mx-auto" alt="Scraped Image 2"/>
+                    <img src="/static/img/blog-3.jpg" class="img-fluid rounded d-block mx-auto" alt="Scraped Image 3"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--pricing section-->
+<!-- <section class="py-7 bg-dark section-angle top-right bottom-right" id="pricing">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto text-center">
+                <h2 class="text-white heading-black">Choose your pricing plan.</h2>
+                <p class="text-light lead">Flexible pricing options - 7 Days free trial</p>
+            </div>
+        </div>
+        <div class="row pt-5 pricing-table">
+            <div class="col-12 mx-auto">
+                <div class="card-deck pricing-table">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title pt-3">10 Savings</h3>
+                            <h2 class="card-title text-primary mb-0 pt-4">$1</h2>
+                            <div class="text-muted font-weight-medium mt-2">per month</div>
+                            <ul class="list-unstyled pricing-list">
+                                <li>10 Savings</li>
+                                <li>Basic Support</li>
+                                <li>Access to premium features</li>
+                            </ul>
+                            <a href="#" class="btn btn-primary">
+                                Get Started
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title pt-3">100 Savings</h3>
+                            <h2 class="card-title text-info mb-0 pt-4">$10</h2>
+                            <div class="text-muted font-weight-medium mt-2">per month</div>
+                            <ul class="list-unstyled pricing-list">
+                                <li>100 Savings</li>
+                                <li>Priority Support</li>
+                                <li>Access to premium features</li>
+                            </ul>
+                            <a href="#" class="btn btn-info">
+                                Get Started
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title pt-3">1000 Savings</h3>
+                            <h2 class="card-title text-primary mb-0 pt-4">$50</h2>
+                            <div class="text-muted font-weight-medium mt-2">per month</div>
+                            <ul class="list-unstyled pricing-list">
+                                <li>1000 Savings</li>
+                                <li>24/7 Support</li>
+                                <li>Access to premium features</li>
+                            </ul>
+                            <a href="#" class="btn btn-primary">
+                                Get Started
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-6">
+            <div class="col-md-6 mx-auto text-center">
+                <h3>Enhance Your Image Scraping Experience</h3>
+                <p class="lead">
+                    Our service not only offers powerful image scraping capabilities but also provides additional tools and features to enhance your experience:
+                </p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-8 col-12 mx-auto text-center">
+                <ul class="features-list">
+                    <li>Customizable scraping settings</li>
+                    <li>Advanced image filtering options</li>
+                    <li>Integrated image storage and organization</li>
+                    <li>Regular updates and new scraping techniques</li>
+                    <li>24/7 customer support</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-8 col-12 mx-auto text-center">
+                <h3>Get Started with Image Scraping Today</h3>
+                <p class="mb-4">Take advantage of our powerful image scraping solution and unlock the full potential of your data collection process.</p>
+                <button class="btn btn-primary">
+                    Start Scraping
+                </button>
+            </div>
+        </div>      
+</section> -->
+
+
+<!-- FAQ section -->
+<!-- <section class="py-7" id="faq">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto text-center">
+                <h2>Frequently Asked Questions</h2>
+                <p class="text-muted lead">Answers to common questions about the gdn-ingatlan image scraper.</p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-10 mx-auto">
+                <div class="row">
+                    <div class="col-md-6 mb-5">
+                        <h6>What is the gdn-ingatlan image scraper?</h6>
+                        <p class="text-muted">The gdn-ingatlan image scraper is a tool designed to extract images from property listings on the gdn-ingatlan website.</p>
+                    </div>
+                    <div class="col-md-6 mb-5">
+                        <h6>How can I use the gdn-ingatlan image scraper?</h6>
+                        <p class="text-muted">To use the gdn-ingatlan image scraper, simply input the URL of a gdn-ingatlan property listing, and the tool will extract and download the images for you.</p>
+                    </div>
+                    <div class="col-md-6 mb-5">
+                        <h6>Is it legal to scrape images from gdn-ingatlan using this tool?</h6>
+                        <p class="text-muted">Yes, the gdn-ingatlan image scraper operates within the terms of use of the gdn-ingatlan website. However, it's essential to use the tool responsibly and respect the website's policies.</p>
+                    </div>
+                    <div class="col-md-6 mb-5">
+                        <h6>What types of images can I extract with the gdn-ingatlan image scraper?</h6>
+                        <p class="text-muted">You can extract various types of images related to property listings, including interior and exterior photos, floor plans, and other visual assets provided on gdn-ingatlan.</p>
+                    </div>
+                    <div class="col-md-6 mb-5">
+                        <h6>Are there any limitations to using the gdn-ingatlan image scraper?</h6>
+                        <p class="text-muted">While the gdn-ingatlan image scraper is designed to efficiently extract images, it's essential to be mindful of the website's usage policies and avoid overloading their servers with excessive requests.</p>
+                    </div>
+                    <div class="col-md-6 mb-5">
+                        <h6>What support options are available for users of the gdn-ingatlan image scraper?</h6>
+                        <p class="text-muted">Users of the gdn-ingatlan image scraper can access documentation, tutorials, and community forums for assistance. Additionally, direct support channels may be available for premium users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6 mx-auto text-center">
+                <h5 class="mb-4">Still have questions?</h5>
+                <a href="#" class="btn btn-primary">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
+<!--news section-->
+<!-- <section class="py-7 bg-dark section-angle top-left bottom-left" id="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto text-center">
+                <h2 class="heading-black">News from Knight.</h2>
+                <p class="text-muted lead">What's new at Knight.</p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card">
+                    <a href="#">
+                        <img class="card-img-top img-raised" src="img/blog-1.jpg" alt="Blog 1">
+                    </a>
+                    <div class="card-body">
+                        <a href="#" class="card-title mb-2"><h5>We launch new iOS & Android mobile apps</h5></a>
+                        <p class="text-muted small-xl mb-2">Sep 27, 2018</p>
+                        <p class="card-text">Nam liber tempor cum soluta nobis eleifend option congue nihil imper,
+                            consectetur adipiscing elit. <a href="#">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <a href="#">
+                        <img class="card-img-top img-raised" src="img/blog-2.jpg" alt="Blog 2">
+                    </a>
+                    <div class="card-body">
+                        <a href="#" class="card-title mb-2"><h5>New update is available for the editor</h5></a>
+                        <p class="text-muted small-xl mb-2">August 16, 2018</p>
+                        <p class="card-text">Nam liber tempor cum soluta nobis eleifend option congue nihil imper,
+                            consectetur adipiscing elit. <a href="#">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <a href="#">
+                        <img class="card-img-top img-raised" src="img/blog-3.jpg" alt="Blog 3">
+                    </a>
+                    <div class="card-body">
+                        <a href="#" class="card-title mb-2"><h5>The story of building #1 page builder</h5></a>
+                        <p class="text-muted small-xl mb-2">December 2nd, 2017</p>
+                        <p class="card-text">Nam liber tempor cum soluta nobis eleifend option congue nihil imper,
+                            consectetur adipiscing elit. <a href="#">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-6">
+            <div class="col-md-6 mx-auto text-center">
+                <a href="#" class="btn btn-primary">View all posts</a>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<!--footer-->
+<footer class="py-6">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5 mr-auto">
+                <h5>About gdn-ingatlan Image Scraper</h5>
+                <p class="text-muted">The gdn-ingatlan Image Scraper is a tool created by CyberRide for extracting images from property listings on the gdn-ingatlan website.</p>
+                <ul class="list-inline social social-sm">
+                    <li class="list-inline-item">
+                        <a href="https://facebook.com/cyberride"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.tiktok.com/@cyberride"><i class="fa fa-tiktok"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/CyberRide"><i class="fa fa-github"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-2">
+                <h5>Legal</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Refund policy</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-2">
+                <h5>Partner</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Refer a friend</a></li>
+                    <li><a href="#">Affiliates</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-2">
+                <h5>Help</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Log in</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12 text-muted text-center small-xl">
+                &copy; 2024 gdn-ingatlan Image Scraper - All Rights Reserved
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!--scroll to top-->
+<div class="scroll-top">
+    <i class="fa fa-angle-up" aria-hidden="true"></i>
+</div>
+
+<!-- theme switcher (FOR DEMO ONLY - REMOVE FROM PRODUCTION)-->
+<div class="switcher-wrap">
+    <div class="switcher-trigger">
+        <span class="fa fa-gear"></span>
+    </div>
+    <div class="color-switcher">
+        <h6>Color Switcher</h6>
+        <ul class="mt-3 clearfix">
+            <li class="bg-teal active" data-color="default" title="Default Teal"></li>
+            <li class="bg-purple" data-color="purple" title="Purple"></li>
+            <li class="bg-blue" data-color="blue" title="Blue"></li>
+            <li class="bg-red" data-color="red" title="Red"></li>
+            <li class="bg-green" data-color="green" title="Green"></li>
+            <li class="bg-indigo" data-color="indigo" title="Indigo"></li>
+            <li class="bg-orange" data-color="orange" title="Orange"></li>
+            <li class="bg-cyan" data-color="cyan" title="Cyan"></li>
+            <li class="bg-yellow" data-color="yellow" title="Yellow"></li>
+            <li class="bg-pink" data-color="pink" title="Pink"></li>
+        </ul>
+        <!-- <p>These are just demo colors. You can <b>easily</b> create your own color scheme.</p> -->
+    </div>
+</div>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.7.3/feather.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+<script>
+    // Reset input field value after file download
+    document.getElementById('imageForm').addEventListener('submit', function() {
+        setTimeout(function() {
+            document.getElementById('link').value = ''; // Clear input field value after 1 second
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>
